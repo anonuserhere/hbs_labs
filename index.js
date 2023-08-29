@@ -24,14 +24,16 @@ app.use(
 );
 
 const landingRoutes = require("./routes/landing") 
+const posterRoutes = require("./routes/poster")
 
 async function main() {
 app.use("/", landingRoutes)
+app.use("/posters", posterRoutes)
 }
 
 main();
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log("Server has started");
+  console.log("Server has started at", process.env.PORT);
 });
 
