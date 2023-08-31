@@ -4,4 +4,8 @@ const Poster = bookshelf.model("Poster", {
   tableName: "posters",
 });
 
-module.exports = { Poster };
+const Category = bookshelf.model("Category", {
+  tableName: "categories",
+});
+
+module.exports = { Poster, Category };

@@ -29,7 +29,7 @@ var bootstrapField = function (name, object) {
 
 const createProductForm = () => {
   return forms.create({
-    name: fields.string({
+    title: fields.string({
       required: true,
       errorAfterField: true,
       cssClasses: {
@@ -50,7 +50,28 @@ const createProductForm = () => {
         label: ["form-label"],
       },
     }),
-  });
-};
+    stock: fields.string({
+      required: true,
+      errorAfterField: true,
+      cssClasses: {
+        label: ["form-label"],
+      },
+    }),
+    height: fields.string({
+      required: true,
+      errorAfterField: true,
+      cssClasses: {
+        label: ["form-label"],
+      }
+    }),
+    width: fields.string({
+      required: true,
+      errorAfterField: true,
+      cssClasses: {
+        label: ["form-label"],
+      },
+    })
+  })
+}
 
 module.exports = { createProductForm, bootstrapField };

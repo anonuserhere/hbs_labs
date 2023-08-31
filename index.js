@@ -23,12 +23,31 @@ app.use(
   })
 );
 
-const landingRoutes = require("./routes/landing") 
+const session = require("express-session")
+const flash = require("connect-flash")
+const FileStore = require("session-file-store")(session)
+
+app.use(session({
+  store: new FileStore(),
+  secret: "secret password",
+  resave: false, //overwrites previous so set to false if unwanted
+  saveUninitialized: true //create new session if it does not exist
+}))
+
+app.use(flash())
+
+app.use(function (req, res, next) {
+  res.locals.success_messages = req.flash("success_messages")
+  res.locals.error_messages = req.flash("error_messages")
+  next()
+})
+
+const landingRoutes = require("./routes/landing")
 const posterRoutes = require("./routes/poster")
 
 async function main() {
-app.use("/", landingRoutes)
-app.use("/posters", posterRoutes)
+  app.use("/", landingRoutes)
+  app.use("/posters", posterRoutes)
 }
 
 main();
