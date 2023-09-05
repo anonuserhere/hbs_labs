@@ -8,4 +8,8 @@ const Category = bookshelf.model("Category", {
   tableName: "categories",
 });
 
-module.exports = { Poster, Category };
+const User = bookshelf.model("User", {
+  tableName : "users"
+})
+
+module.exports = { Poster, Category, User };

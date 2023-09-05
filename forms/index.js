@@ -27,7 +27,7 @@ var bootstrapField = function (name, object) {
   return '<div class="form-group">' + label + widget + error + "</div>";
 };
 
-const createProductForm = () => {
+const createProductForm = (categories) => {
   return forms.create({
     title: fields.string({
       required: true,
@@ -62,7 +62,7 @@ const createProductForm = () => {
       errorAfterField: true,
       cssClasses: {
         label: ["form-label"],
-      }
+      },
     }),
     width: fields.string({
       required: true,
@@ -70,8 +70,73 @@ const createProductForm = () => {
       cssClasses: {
         label: ["form-label"],
       },
+    }),
+    // category_id: fields.string({
+    //   label: "Category",
+    //   required: true,
+    //   errorAfterField: true,
+    //   cssClasses: {
+    //     label: ["form-label"],
+    //   },
+    //   widget: forms.widgets.select(),
+    //   choices: categories,
+    // }),
+  });
+};
+
+const createRegistrationForm = () => {
+  return forms.create({
+    'username': fields.string({
+      required: true,
+      errorAfterField: true,
+      cssClasses: {
+        label: ['form-label']
+      }
+    }),
+    'email': fields.string({
+      required: true,
+      errorAfterField: true,
+      cssClasses: {
+        label: ['form-label']
+      }
+    }),
+    'password': fields.password({
+      required: true,
+      errorAfterField: true,
+      cssClasses: {
+        label: ['form-label']
+      }
+    }),
+    'confirm_password': fields.password({
+      required: true,
+      errorAfterField: true,
+      cssClasses: {
+        label: ['form-label']
+      },
+      validators: [validators.matchField('password')]
     })
   })
 }
 
-module.exports = { createProductForm, bootstrapField };
+const createLoginForm = () => {
+  return forms.create({
+    'email': fields.string({
+      required: true,
+      errorAfterField: true,
+      cssClasses: {
+        label: ['form-label']
+      }
+    }),
+    'password': fields.password({
+      required: true,
+      errorAfterField: true,
+      cssClasses: {
+        label: ['form-label']
+      }
+    }),
+  })
+}
+
+
+
+module.exports = { createProductForm, bootstrapField, createRegistrationForm, createLoginForm };

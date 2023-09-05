@@ -14,17 +14,29 @@ exports.setup = function (options, seedLink) {
   seed = seedLink;
 };
 
+// exports.up = function (db) {
+//   return db.addForeignKey(
+//     "posters",
+//     "categories",
+//     "poster_category_fk",
+//     {
+//       category_id: "id",
+//     },
+//     { onDelete: "CASCADE", onUpdate: "RESTRICT" }
+//   );
+// };
+
+// exports.down = function (db) {
+//   return db.removeForeignKey("posters", "poster_category_fk");
+// };
+
 exports.up = function (db) {
-  return db.addColumn("posters", "category_id", {
-    type: "int",
-    notNull: true,
-    unsigned: true,
-  });
-};
+  return null;
+}
 
 exports.down = function (db) {
-  return db.removeColumn("posters", "category_id");
-};
+  return null
+}
 
 exports._meta = {
   version: 1,
