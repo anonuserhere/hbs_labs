@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Poster, Category } = require("../models");
 const { bootstrapField, createProductForm } = require("../forms");
-const { KnexTimeoutError } = require("knex");
+const { checkIfAuth } = require("../middlewares");
 
 // router.get("/", async (req, res) => {
 //   let posters = await Poster.collection().fetch({
@@ -31,9 +31,9 @@ router.post("/", async (req, res) => {
     },
     error: async (form) => {
       res.render("posters/create"),
-        {
-          form: form.toHTML(bootstrapField),
-        };
+      {
+        form: form.toHTML(bootstrapField),
+      };
     },
     // "empty" :{
     //   //re-render
@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
   });
 });
 
-router.get("/create", async (req, res) => {
+router.get("/create", [checkIfAuth], async (req, res) => {
   console.log(req.params);
   const productForm = createProductForm();
   res.render("posters/create", {
@@ -49,7 +49,7 @@ router.get("/create", async (req, res) => {
   });
 });
 
-router.post("/create", async (req, res) => {
+router.post("/create", [checkIfAuth], async (req, res) => {
   const productForm = createProductForm();
   productForm.handle(req, {
     success: async (form) => {
@@ -66,7 +66,7 @@ router.post("/create", async (req, res) => {
   });
 });
 
-router.post("/create", async (req, res) => {
+router.post("/create", [checkIfAuth], async (req, res) => {
   const allCategories = (await Category.fetchAll()).invokeMap((category) => {
     return [category.get("id"), category.get("name")];
   });
@@ -90,7 +90,7 @@ router.post("/create", async (req, res) => {
   });
 });
 
-router.get("/:id/update", async (req, res) => {
+router.get("/:id/update", [checkIfAuth], async (req, res) => {
   const poster = await Poster.where({
     id: req.params.id,
   }).fetch({
@@ -112,7 +112,7 @@ router.get("/:id/update", async (req, res) => {
   });
 });
 
-router.post("/:id/update", async (req, res) => {
+router.post("/:id/update", [checkIfAuth], async (req, res) => {
   const poster = await Poster.where({
     id: req.params.id,
   }).fetch({
@@ -135,7 +135,7 @@ router.post("/:id/update", async (req, res) => {
   });
 });
 
-router.get("/:id/delete", async (req, res) => {
+router.get("/:id/delete", [checkIfAuth], async (req, res) => {
   const poster = await Poster.where({
     id: req.params.id,
   }).fetch({
@@ -146,7 +146,7 @@ router.get("/:id/delete", async (req, res) => {
   });
 });
 
-router.post("/:id/delete", async (req, res) => {
+router.post("/:id/delete", [checkIfAuth], async (req, res) => {
   const poster = await Poster.where({
     id: req.params.id,
   }).fetch({

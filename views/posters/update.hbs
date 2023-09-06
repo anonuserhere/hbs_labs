@@ -3,6 +3,7 @@
 <h1>Update details: {{poster.name}}</h1>
 <form method="POST">
     {{{form}}}
+    <input type="hidden" name="_csrf" value="{{csrfToken}}" />
     <input type="submit" value="Update poster" class="btn btn-primary btn-sm" />
 </form>
 {{/block}}

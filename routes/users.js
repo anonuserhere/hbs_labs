@@ -1,17 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const crypto = require("crypto")
+const { User } = require('../models');
+const { createLoginForm, createRegistrationForm, bootstrapField } = require('../forms');
+const { checkIfAuth } = require("../middlewares")
 
 const hashedPW = (password) => {
     const sha256 = crypto.createHash("sha256")
     const hash = sha256.update(password).digest("base64")
     return hash
 }
-
-const { User } = require('../models');
-
-const { createLoginForm, createRegistrationForm, bootstrapField } = require('../forms');
-const { create } = require("forms");
 
 router.get('/register', (req, res) => {
     const registerForm = createRegistrationForm();
@@ -86,7 +84,7 @@ router.post("/login", async (req, res) => {
     })
 })
 
-router.get("/profile", (req, res) => {
+router.get("/profile", [checkIfAuth], (req, res) => {
     const user = req.session.user;
     if (!user) {
         req.flash("error_messages", "You do not have permission to view this")
