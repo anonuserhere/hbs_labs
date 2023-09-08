@@ -1,4 +1,5 @@
 // import in caolan forms
+const { widgets } = require("forms");
 const forms = require("forms");
 // create some shortcuts
 const fields = forms.fields;
@@ -27,7 +28,7 @@ var bootstrapField = function (name, object) {
   return '<div class="form-group">' + label + widget + error + "</div>";
 };
 
-const createProductForm = (categories) => {
+const createProductForm = () => {
   return forms.create({
     title: fields.string({
       required: true,
@@ -71,16 +72,20 @@ const createProductForm = (categories) => {
         label: ["form-label"],
       },
     }),
-    // category_id: fields.string({
-    //   label: "Category",
-    //   required: true,
-    //   errorAfterField: true,
-    //   cssClasses: {
-    //     label: ["form-label"],
-    //   },
-    //   widget: forms.widgets.select(),
-    //   choices: categories,
-    // }),
+    image_url: fields.string({
+      required: false,
+      widget: widgets.hidden()
+    }),
+    category_id: fields.string({
+      label: "Category",
+      required: true,
+      errorAfterField: true,
+      cssClasses: {
+        label: ["form-label"],
+      },
+      // widget: forms.widgets.select(),
+      // choices: categories,
+    }),
   });
 };
 
@@ -137,6 +142,50 @@ const createLoginForm = () => {
   })
 }
 
+const createSearchForm = () => {
+  return forms.create({
+    'title': fields.string({
+      required: false,
+      errorAfterField: true,
+      cssClasses: {
+        label: ['form-label']
+      }
+    }),
+    'min_cost': fields.string({
+      required: false,
+      errorAfterField: true,
+      cssClasses: {
+        label: ['form-label']
+      },
+      'validators': [validators.integer()]
+    }),
+    'max_cost': fields.string({
+      required: false,
+      errorAfterField: true,
+      cssClasses: {
+        label: ['form-label']
+      },
+      'validators': [validators.integer()]
+    }),
+    'category_id': fields.string({
+      label: 'Category',
+      required: false,
+      errorAfterField: true,
+      cssClasses: {
+        label: ['form-label']
+      },
+      // widget: widgets.select(),
+      // choices: categories
+    }),
+    // 'tags': fields.string({
+    //     required:false,
+    //     errorAfterField: true,
+    //     cssClasses: {
+    //         label: ['form-label']
+    //     },
+    // widget: widgets.multipleSelect(),
+    // choices: tags
+  })
+}
 
-
-module.exports = { createProductForm, bootstrapField, createRegistrationForm, createLoginForm };
+module.exports = { createProductForm, bootstrapField, createRegistrationForm, createLoginForm, createSearchForm };

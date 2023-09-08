@@ -1,5 +1,11 @@
 {{#extends "base"}}
 {{#block "content"}}
+
+<form method="GET">
+    {{{form}}}
+    <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+    <input type="submit" class="m-3 btn btn-primary" value="Search" />
+</form>
 <table class="table">
     <thead>
         <tr>

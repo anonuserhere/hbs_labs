@@ -12,10 +12,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@uploadcare/rest-client": "^6.6.1",
     "bookshelf": "^1.2.0",
     "bootstrap": "^5.3.1",
     "cloudinary": "^1.40.0",
     "connect-flash": "^0.1.1",
+    "cors": "^2.8.5",
     "csurf": "^1.11.0",
     "db-migrate": "^0.11.13",
     "db-migrate-mysql": "^2.2.0",
@@ -28,6 +30,7 @@
     "mysql": "^2.18.1",
     "nodemon": "^3.0.1",
     "session-file-store": "^1.5.0",
+    "stripe": "^13.5.0",
     "wax-on": "^1.2.2"
   }
 }
